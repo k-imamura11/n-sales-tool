@@ -1,8 +1,18 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App'
-import './index.css'
-import { initializeApp } from "firebase/app";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import { initializeApp } from 'firebase/app';
+import { BrowserRouter as Router, useRoutes } from 'react-router-dom';
+
+import routes from '~react-pages';
+
+const App = () => {
+  return (
+    <React.Suspense fallback={<p>Loading...</p>}>
+      {useRoutes(routes)}
+    </React.Suspense>
+  );
+};
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_API_KEY,
@@ -18,6 +28,8 @@ const app = initializeApp(firebaseConfig);
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-)
+    <Router>
+      <App />
+    </Router>
+  </React.StrictMode>
+);
